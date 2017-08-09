@@ -22,6 +22,7 @@ import pickle
 import os
 import sys
 import logging
+import numpy
 
 class Experiment:
     """
@@ -272,7 +273,9 @@ class Experiment:
             # go through problems and calculate both primal and dual integrals
             for problemid in testrun.getProblemIds():
                 processplotdata = getProcessPlotData(testrun, problemid)
-
+                f = open(testrun.getProblemDataById(problemid, 'LogFileName') + 'numpy.txt', 'ab')
+                numpy.savetxt(f, processplotdata, header=testrun.getProblemDataById(problemid, 'ProblemName'))
+                f.close()
                 # check for well defined data (may not exist sometimes)
                 if processplotdata:
                     try:

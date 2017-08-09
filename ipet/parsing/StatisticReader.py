@@ -339,9 +339,9 @@ class TimeLimitReader(StatisticReader):
     """
     name = 'TimeLimitReader'
     timelimitreadkeys = {
-                   StatisticReader.SOLVERTYPE_SCIP : '@05',
+                   StatisticReader.SOLVERTYPE_SCIP : '@abc',
                    StatisticReader.SOLVERTYPE_CPLEX : '@05',
-                   StatisticReader.SOLVERTYPE_GUROBI : "@05",
+                   StatisticReader.SOLVERTYPE_GUROBI : "@abs",
                    StatisticReader.SOLVERTYPE_CBC : "@05",
                    StatisticReader.SOLVERTYPE_XPRESS : "@05",
                    StatisticReader.SOLVERTYPE_COUENNE : "^@05"}

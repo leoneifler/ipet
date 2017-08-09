@@ -151,7 +151,10 @@ class Solver():
         if history == [] or history[-1][1] != bound:
             if(key == Key.PrimalBoundHistory):
                 history.append((time, bound))
-            elif(key == Key.DualBoundHistory) and (history == [] or history[-1][0] != time):
+            elif(key == Key.DualBoundHistory) and (history == [] or history[-1][0] != time ):
+                history.append((time, bound))
+            elif(key == Key.DualBoundHistory and  history[-1][0] == time):
+                history.pop(-1)
                 history.append((time, bound))
 
     def readLine(self, line : str):
@@ -444,11 +447,22 @@ class SCIPSolver(Solver):
             settings = os.path.basename(absolutesettingspath)
             settings = os.path.splitext(settings)[0]
 
+    def extractRedAmount(self, line : str):
+        #extract how much instance was reduced for spa file
+        if line.startswith('  Problem name'):
+            elem = line.split('spa')[0][-4:-1]
+            try:
+                percentage = float(elem)
+            except ValueError:
+                percentage = 0
+            self.addData("Reduction", percentage)
+
     def extractOptionalInformation(self, line : str):
         """Extract the path info
         """
         self.extractPath(line)
         self.extractMoreData(line)
+        self.extractRedAmount(line)
 
 class GurobiSolver(Solver):
 
