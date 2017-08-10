@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
-<Evaluation comparecolformat="%.3f" defaultgroup="check.full.scip.linux.x86_64.gnu.opt.cpx.M620.test_all.out" evaluateoptauto="True" groupkey="Status" index="ProblemName LogFileName" indexsplit="-1" sortlevel="0">
+<Evaluation comparecolformat="%.3f" defaultgroup="check.test_all.out" evaluateoptauto="True" groupkey="Status" index="ProblemName LogFileName" indexsplit="-1" sortlevel="0">
 	<Column active="True" alternative="-1" minval="0.5" name="Time" origcolname="SolvingTime" reduction="meanOrConcat" translevel="0">
-		<Aggregation aggregation="mean" name="shmean"/>
+		<Aggregation aggregation="shmean" name="shmean" shiftby="10.0"/>
 	</Column>
 	<Column active="True" origcolname="Nodes" reduction="getBestStatus">
 		<Aggregation aggregation="shmean" name="shmean" shiftby="10.0"/>
@@ -15,19 +15,24 @@
 	<Column active="True" name="Status" origcolname="SolverStatus" reduction="getBestStatus" translevel="0"/>
 	<Column active="True" name="Primal" origcolname="PrimalBound" reduction="meanOrConcat" translevel="0"/>
 	<Column active="True" name="Gap" origcolname="Gap" reduction="meanOrConcat" translevel="0"/>
-	<FilterGroup active="False" filtertype="intersection" name="0red">
+	<FilterGroup active="True" filtertype="intersection" name="0red">
 		<Filter active="True" anytestrun="all" expression1="Reduction" expression2="0.0" operator="eq"/>
+		<Filter active="True" anytestrun="all" expression1="Status" expression2="0.0" operator="eq"/>
+		<Filter active="True" anytestrun="all" expression1="SolvingTime" expression2="50" operator="ge"/>
 	</FilterGroup>
-	<FilterGroup active="False" filtertype="union" name="25red">
+	<FilterGroup active="True" filtertype="union" name="25red">
 		<Filter active="True" anytestrun="all" expression1="Reduction" expression2="0.25" operator="eq"/>
 		<Filter active="True" anytestrun="all" expression1="Status" expression2="0" operator="eq"/>
+		<Filter active="True" anytestrun="all" expression1="SolvingTime" expression2="50" operator="ge"/>
 	</FilterGroup>
 	<FilterGroup active="True" filtertype="intersection" name="50red">
 		<Filter active="True" anytestrun="all" expression1="Reduction" expression2="0.5" operator="eq"/>
 		<Filter active="True" anytestrun="all" expression1="Status" expression2="0" operator="eq"/>
+		<Filter active="True" anytestrun="all" expression1="SolvingTime" expression2="50" operator="ge"/>
 	</FilterGroup>
-	<FilterGroup active="False" filtertype="intersection" name="75red">
+	<FilterGroup active="True" filtertype="intersection" name="75red">
 		<Filter active="True" anytestrun="all" expression1="Reduction" expression2="0.75" operator="eq"/>
 		<Filter active="True" anytestrun="all" expression1="Status" expression2="0" operator="eq"/>
+		<Filter active="True" anytestrun="all" expression1="SolvingTime" expression2="50" operator="ge"/>
 	</FilterGroup>
 </Evaluation>

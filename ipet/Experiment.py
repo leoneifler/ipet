@@ -273,7 +273,7 @@ class Experiment:
             # go through problems and calculate both primal and dual integrals
             for problemid in testrun.getProblemIds():
                 processplotdata = getProcessPlotData(testrun, problemid)
-                f = open(testrun.getProblemDataById(problemid, 'LogFileName') + 'numpy.txt', 'ab')
+                f = open(testrun.getProblemDataById(problemid, 'LogFileName')[:-4] + '_primal-numpy.txt', 'ab')
                 numpy.savetxt(f, processplotdata, header=testrun.getProblemDataById(problemid, 'ProblemName'))
                 f.close()
                 # check for well defined data (may not exist sometimes)
@@ -285,6 +285,9 @@ class Experiment:
                         logging.error("Error for primal bound on problem %s, list: %s" % (problemid, processplotdata))
 
                 processplotdata = getProcessPlotData(testrun, problemid, **dualargs)
+                f = open(testrun.getProblemDataById(problemid, 'LogFileName')[:-4]  + '_dual-numpy.txt', 'ab')
+                numpy.savetxt(f, processplotdata, header=testrun.getProblemDataById(problemid, 'ProblemName'))
+                f.close()
                 # check for well defined data (may not exist sometimes)
                 if processplotdata:
                     try:
