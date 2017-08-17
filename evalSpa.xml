@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<Evaluation comparecolformat="%.3f" defaultgroup="check.spa_full.gurobi_cl.linux.x86_64.M620.default_1.out" evaluateoptauto="True" groupkey="Status" index="ProblemName LogFileName" indexsplit="-1" sortlevel="0">
+<Evaluation comparecolformat="%.3f" defaultgroup="check.all.scip_def.out" evaluateoptauto="True" groupkey="Status" index="ProblemName LogFileName" indexsplit="-1" sortlevel="0">
 	<Column active="True" alternative="-1" minval="0.5" name="Time" origcolname="SolvingTime" reduction="meanOrConcat" translevel="0">
 		<Aggregation aggregation="shmean" name="shmean" shiftby="10.0"/>
 	</Column>
@@ -13,11 +13,22 @@
 		<Aggregation aggregation="shmean" name="shmean" shiftby="10.0"/>
 	</Column>
 	<Column active="True" name="Status" origcolname="SolverStatus" reduction="getBestStatus" translevel="0"/>
+	<Column active="True" name="SoluStat" origcolname="SoluFileStatus" reduction="meanOrConcat" translevel="0"/>
 	<FilterGroup active="True" filtertype="intersection" name="all"/>
 	<FilterGroup active="True" filtertype="intersection" name="alloptimal">
 		<Filter active="True" anytestrun="all" expression1="SolverStatus" expression2="0.0" operator="eq"/>
 	</FilterGroup>
 	<FilterGroup active="True" filtertype="intersection" name="easyinstances">
 		<Filter active="True" anytestrun="all" expression1="Time" expression2="100" operator="le"/>
+	</FilterGroup>
+	<FilterGroup active="True" filtertype="intersection" name="New Group 1">
+		<Filter active="True" anytestrun="all" expression1="SolverStatus" expression2="0.0" operator="eq"/>
+		<Filter active="True" anytestrun="all" expression1="Time" expression2="50" operator="ge"/>
+	</FilterGroup>
+	<FilterGroup active="True" filtertype="intersection" name="Test">
+		<Filter active="True" anytestrun="all" expression1="SoluFileStatus" expression2="opt" operator="eq"/>
+	</FilterGroup>
+	<FilterGroup active="True" filtertype="intersection" name="Test2">
+		<Filter active="True" anytestrun="all" expression1="SoluFileStatus" expression2="best" operator="eq"/>
 	</FilterGroup>
 </Evaluation>
